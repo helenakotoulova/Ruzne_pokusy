@@ -1443,6 +1443,9 @@ Any function, including the window object, can overwrite your global variables a
 
 /*
 VARIABLES
+OD MAXE:
+- let is new var, use let instead of var!!!!! var is old-fashioned
+
 
 1. VAR
 If you use var outside of a function, it belongs to the global scope.
@@ -1483,6 +1486,22 @@ function discountPrices (prices, discount) {
   console.log(discounted)
   return discounted
 }
+// DULEZITE: KDYZ NECHAM JEN: discounted.push(finalPrice) a neukladam si to do zadneho array, tak to funguje v podstate jako concat.
+// kdyz to ale ulozim napr jako: var discounted2=discounted.push(finalPrice), tak discounted2 mi vrati length toho noveho array (zde 3).
+// kazdopadne console.log(discounted) mi stale vypise [50,100,150].
+
+/*
+CONCAT
+const array1 = ['a', 'b', 'c'];
+const array2 = ['d', 'e', 'f'];
+const array3 = array1.concat(array2);
+
+console.log(array3);
+// expected output: Array ["a", "b", "c", "d", "e", "f"]
+
+- kdyz si u concatu ulozim novy array do jineho array, tak mi to vrati cely array. ne jen delku (property length)
+
+*/
 
 discountPrices([100, 200, 300], .5) // [50, 100, 150]
 
@@ -1658,6 +1677,8 @@ const frog = new Animal("frog", "George", "ribbit");
 frog.sound;
 // => "ribbit"
 
+DULEZITA POZN.: v tom this.makeSound opravdu musi byt ty `` a ne ''!!!!!!!! jinak to ukaze: The ${this.type} named ${this.name} goes ${this.sound}!
+
 ZATIM STEJNE, ZE?
 JENZE: ES6 gives us the new ability to create a class that inherits properties from a parent (“super”) class. 
 It uses the extends keyword. Let’s take our frog example, and this time we’ll create it as a class.
@@ -1678,3 +1699,82 @@ Pozn.: A $ sign to define/access jQuery.
 */
 
 
+/*
+EXPORTS AND IMPORTS
+export default person;
+
+import person from './person.js';
+nebo:
+import prs from './person.js';
+
+
+ale:
+export const x=12;
+import {x} from './anotherFile.js';
+
+export const clean() => {};
+import {clean} from './anotherFile.js'
+
+ROZDIL JE V TOM DEFAULT! pokud napisu export default .. , tak je pak jedno jak si tu vec nazvu pri importu
+
+
+-dalsi vec:
+
+import * as bundled from '.abc.js'
+
+* znamena everything. bundled je muj alias.
+
+*/
+
+/*
+const person = {
+  name: 'max';
+}
+
+const secondPerson = {
+  ...person
+}
+
+person.name='Manu';
+
+console.log(person.name) // => 'Manu'
+console.log(secondPerson.name) // => 'Max'
+*/
+
+/*
+ARRAY METHODS:
+- pop, shift, unshift, splice, push,...
+vetsinou neco vraceji.
+takze kdyz udelam:
+
+const numbers = [1,2,3];
+
+numbers.push(4)
+
+console.log(numbers) // => [1,2,3,4]
+
+const numbers2=numbers.push(5)
+console.log(numbers2) // => TAK TADY MI TO NEUDELA NOVY ARRAY [1,2,3,4,5]!!!!! ALE VYPISE TO LENGTH TOHO NOVEHO ARRAY = 5.
+
+--------- podobne i zde:
+var numbers = [1,2,3,4];
+numbers.splice(0,1)
+console.log(numbers) //=> [2,3,4]
+numbers =numbers.splice(0,1) // => [2]
+console.log(numbers) [3,4]
+(dulezita pozn: zde bylo treba napsat var numbers, protoze pak pisu numbers=numbers.splice() a u const numbers by to neslo preassignovat)
+
+Array.prototype.find()
+The find() method returns the value of the first element in the provided array that satisfies the provided testing function. 
+If no values satisfy the testing function, undefined is returned.
+
+const array1 = [5, 12, 8, 130, 44];
+
+const found = array1.find(element => element > 10);
+
+console.log(found);
+// expected output: 12
+
+
+
+*/
